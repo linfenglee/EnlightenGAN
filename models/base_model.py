@@ -1,4 +1,5 @@
 import os
+from collections import OrderedDict
 import torch
 
 
@@ -47,10 +48,20 @@ class BaseModel():
             network.cuda(device=gpu_ids[0])
 
     # helper loading function that can be used by subclasses
+    # def load_network(self, network, network_label, epoch_label):
+    #     save_filename = '%s_net_%s.pth' % (epoch_label, network_label)
+    #     save_path = os.path.join(self.save_dir, save_filename)
+    #     network.load_state_dict(torch.load(save_path))
+
     def load_network(self, network, network_label, epoch_label):
         save_filename = '%s_net_%s.pth' % (epoch_label, network_label)
         save_path = os.path.join(self.save_dir, save_filename)
-        network.load_state_dict(torch.load(save_path))
+        state_dict = torch.load(save_path)
+        new_state_dict = OrderedDict()
+        for k, v in state_dict.items():
+            name = k[7:]  # remove module.
+        new_state_dict[name] = v
+        network.load_state_dict(new_state_dict)
 
     def update_learning_rate():
         pass
