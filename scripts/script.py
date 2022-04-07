@@ -37,25 +37,6 @@ if opt.train:
 		--gpu_ids 0,1,2 \
 		--display_port=" + opt.port)
 
-# elif opt.predict:
-# 	for i in range(1):
-# 	        os.system("python predict.py \
-# 	        	--dataroot ./test_dataset \
-# 	        	--name enlightening \
-# 	        	--model single \
-# 	        	--which_direction AtoB \
-# 	        	--no_dropout \
-# 	        	--dataset_mode unaligned \
-# 	        	--which_model_netG sid_unet_resize \
-# 	        	--skip 1 \
-# 	        	--use_norm 1 \
-# 	        	--use_wgan 0 \
-#                 --self_attention \
-#                 --times_residual \
-# 	        	--instance_norm 0 --resize_or_crop='no'\
-# 	        	--which_epoch " + str(200 - i*5))
-
-
 elif opt.predict:
 	for i in range(1):
 	        os.system("python predict.py \
@@ -69,6 +50,25 @@ elif opt.predict:
 	        	--skip 1 \
 	        	--use_norm 1 \
 	        	--use_wgan 0 \
+                --self_attention \
                 --times_residual \
 	        	--instance_norm 0 --resize_or_crop='no'\
 	        	--which_epoch " + str(200 - i*5))
+
+
+# elif opt.predict:
+# 	for i in range(1):
+# 	        os.system("python predict.py \
+# 	        	--dataroot ./test_dataset \
+# 	        	--name enlightening \
+# 	        	--model single \
+# 	        	--which_direction AtoB \
+# 	        	--no_dropout \
+# 	        	--dataset_mode unaligned \
+# 	        	--which_model_netG sid_unet_resize \
+# 	        	--skip 1 \
+# 	        	--use_norm 1 \
+# 	        	--use_wgan 0 \
+#                 --times_residual \
+# 	        	--instance_norm 0 --resize_or_crop='no'\
+# 	        	--which_epoch " + str(200 - i*5))
