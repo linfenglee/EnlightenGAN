@@ -61,7 +61,7 @@ class BaseModel():
         for k, v in state_dict.items():
             name = k[7:]  # remove module.
         new_state_dict[name] = v
-        network.load_state_dict(new_state_dict)
+        network.load_state_dict(new_state_dict, strict=False)
 
     def update_learning_rate():
         pass
