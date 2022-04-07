@@ -18,13 +18,14 @@ dataset = data_loader.load_data()
 model = create_model(opt)
 visualizer = Visualizer(opt)
 # create website
-web_dir = os.path.join("./ablation/", opt.name, '%s_%s' % (opt.phase, opt.which_epoch))
+web_dir = os.path.join("ablation/", opt.name, '%s_%s' % (opt.phase, opt.which_epoch))
 webpage = html.HTML(web_dir, 'Experiment = %s, Phase = %s, Epoch = %s' % (opt.name, opt.phase, opt.which_epoch))
 # test
 print(len(dataset))
 for i, data in enumerate(dataset):
     model.set_input(data)
     visuals = model.predict()
+    # print(visuals)
     img_path = model.get_image_paths()
     print('process image... %s' % img_path)
     visualizer.save_images(webpage, visuals, img_path)

@@ -1,4 +1,5 @@
 import os
+from collections import OrderedDict
 import torch
 
 
@@ -50,7 +51,21 @@ class BaseModel():
     def load_network(self, network, network_label, epoch_label):
         save_filename = '%s_net_%s.pth' % (epoch_label, network_label)
         save_path = os.path.join(self.save_dir, save_filename)
-        network.load_state_dict(torch.load(save_path))
+        # network.load_state_dict(torch.load(save_path))
+        if len(self.gpu_ids):
+            network.load_state_dict(torch.load(save_path))
+        else:
+            network.load_state_dict({k.replace('module.', ''): v for k, v in torch.load(save_path).items()})
+
+    # def load_network(self, network, network_label, epoch_label):
+    #     save_filename = '%s_net_%s.pth' % (epoch_label, network_label)
+    #     save_path = os.path.join(self.save_dir, save_filename)
+    #     state_dict = torch.load(save_path)
+    #     new_state_dict = OrderedDict()
+    #     for k, v in state_dict.items():
+    #         name = k[7:]  # remove module.
+    #     new_state_dict[name] = v
+    #     network.load_state_dict(new_state_dict, strict=False)
 
     def update_learning_rate():
         pass
